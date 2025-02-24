@@ -14,6 +14,10 @@ add_definitions(-DUART_BAUD_RATE=${AVR_BAUD_RATE})
 ## Select one of the two upload tools (or make your own)
 # set(AVR_UPLOADTOOL minipro)
 set(AVR_UPLOADTOOL avrdude)
+set(AVR_PROGRAMMER arduino)
+set(AVR_UPLOADTOOL_PORT /dev/ttyUSB0)
+
+
 ## Use this thing to figure out your fuses: https://eleccelerator.com/fusecalc/fusecalc.php?chip=atmega328p
 # https://eleccelerator.com/fusecalc/fusecalc.php?chip=atmega328p&LOW=C2&HIGH=D9&EXTENDED=FF&LOCKBIT=FF
 set(AVR_L_FUSE 0xC2)
