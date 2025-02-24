@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.22)
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 17)
 
-project(cmake_arduino)
+set(CMAKE_PROJECT_NAME, cmake_arduino)
+project(${CMAKE_PROJECT_NAME})
 
 # Set MCU (Reference
 set(AVR_MCU atmega328p)
@@ -14,9 +15,8 @@ add_definitions(-DUART_BAUD_RATE=${AVR_BAUD_RATE})
 ## Select one of the two upload tools (or make your own)
 # set(AVR_UPLOADTOOL minipro)
 set(AVR_UPLOADTOOL avrdude)
-set(AVR_PROGRAMMER arduino)
-set(AVR_UPLOADTOOL_PORT /dev/ttyUSB0)
-
+set(AVR_PROGRAMMER arduino)             # Not used with minipro
+set(AVR_UPLOADTOOL_PORT /dev/ttyUSB0)   # Not used with minipro
 
 ## Use this thing to figure out your fuses: https://eleccelerator.com/fusecalc/fusecalc.php?chip=atmega328p
 # https://eleccelerator.com/fusecalc/fusecalc.php?chip=atmega328p&LOW=C2&HIGH=D9&EXTENDED=FF&LOCKBIT=FF
@@ -29,7 +29,6 @@ set(AVR_L_FUSE 0xff)
 add_definitions(-DAVR_FREQ=${AVR_FREQ})
 set(F_CPU ${AVR_FREQ})
 add_definitions(-DF_CPU=${F_CPU})
-
 
 # Ensure there is a matching bootloader to the following values
 set(AVR_UART UART0)
@@ -77,8 +76,11 @@ file(GLOB_RECURSE RotaryEncoderCPPSources ${RotaryEncoderLibrary}/*.cpp)
 ### For debugging purposes...
 ## This is how to list the contents of the list 'RotaryEncoderIncludes',
 ##   for an imaginary case that the compiler is complaining about it not being included
+
 # message("RotaryEncoderIncludes: ${RotaryEncoderIncludes}")
+
 ## Now we exit before more errors are thrown
+
 # return()
 
 ### These directories will be used by cpp to find which header you pass with #include
@@ -121,6 +123,7 @@ foreach(subdir ${LocalLibSubdirs})
     )
 endforeach()
 
+### A separate call to 'add_avr_library' is required for each third-party library
 add_avr_library(
         AdafruitBusIO
         ${AdafruitBusIOCSources}
@@ -134,28 +137,28 @@ add_avr_library(
 )
 
 ## Note the call to 'add_avr_executable' instead of 'add_executable'
-add_avr_executable(macropad_firmware
+add_avr_executable(${CMAKE_PROJECT_NAME}
         ${Includes}
         ${CPPSources}
         ${CSources}
         ${AVRIncludes}
         ${Variant}/pins_arduino.h
         ${CoreIncludes}
-        ${AdafruitBusIOIncludes}
-        ${RotaryEncoderIncludes}
+        ${AdafruitBusIOIncludes} # Include the headers for each third party library, the source files are already included via avr_target_link_libraries
+        ${RotaryEncoderIncludes} # Include the headers for each third party library, the source files are already included via
         ${CoreLibIncludes}
         ${CoreLibCSources}
         ${CoreLibCPPSources}
 )
 
 ## Note the call to 'avr_target_link_libraries' instead of 'target_link_libraries'
-avr_target_link_libraries(macropad_firmware
+avr_target_link_libraries(${CMAKE_PROJECT_NAME}
         Core
 )
-avr_target_link_libraries(macropad_firmware
+avr_target_link_libraries(${CMAKE_PROJECT_NAME}
         AdafruitBusIO
 )
-avr_target_link_libraries(macropad_firmware
+avr_target_link_libraries(${CMAKE_PROJECT_NAME}
         RotaryEncoder
 )
 
