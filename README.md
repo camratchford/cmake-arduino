@@ -48,7 +48,7 @@ A script at the root of this directory called `clone-third-party.sh` was made fo
 
 ### Optional - Installing avrdude programming tool
 
-Supported programmers are listed [here](https://avrdudes.github.io/avrdude/7.1/avrdude_3.html#index-Programmer-support).
+> Supported programmers are listed [here](https://avrdudes.github.io/avrdude/7.1/avrdude_3.html#index-Programmer-support).
 
 ```bash
 sudo apt install avrdude
