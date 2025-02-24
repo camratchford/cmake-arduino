@@ -6,16 +6,15 @@ set(CMAKE_PROJECT_NAME, cmake_arduino)
 project(${CMAKE_PROJECT_NAME})
 
 # Set MCU (Reference
-set(AVR_MCU atmega328p)
-set(AVR_FREQ 8000000L)
-set(AVR_BAUD_RATE 19200)
-add_definitions(-DAVR_MCU="${AVR_MCU}")
-add_definitions(-DUART_BAUD_RATE=${AVR_BAUD_RATE})
+set(AVR_MCU atmega328p) # see README for list of compatible MCUs
+set(AVR_FREQ 8000000L)  # typically 8000000L, 16000000L. If you're using a different frequency, you'll need to change the fuses.
+set(AVR_BAUD_RATE 19200) # typically 19200, 57600, 115200
 
-## Select one of the two upload tools (or make your own)
-# set(AVR_UPLOADTOOL minipro)
+
+
+## Select one of the two upload tools 'minipro' or 'avrdude'
 set(AVR_UPLOADTOOL avrdude)
-set(AVR_PROGRAMMER arduino)             # Not used with minipro
+set(AVR_PROGRAMMER arduino)             # Not used with minipro, see README for list of compatible avrdude programmers
 set(AVR_UPLOADTOOL_PORT /dev/ttyUSB0)   # Not used with minipro
 
 ## Use this thing to figure out your fuses: https://eleccelerator.com/fusecalc/fusecalc.php?chip=atmega328p
@@ -25,18 +24,20 @@ set(AVR_H_FUSE 0xd9)
 set(AVR_E_FUSE 0xff)
 set(AVR_L_FUSE 0xff)
 
-# Ensure it matches what was set with fuses
-add_definitions(-DAVR_FREQ=${AVR_FREQ})
-set(F_CPU ${AVR_FREQ})
+
+add_definitions(-DAVR_MCU="${AVR_MCU}")
+add_definitions(-DUART_BAUD_RATE=${AVR_BAUD_RATE})  # Used in the bootloader code
+add_definitions(-DAVR_FREQ=${AVR_FREQ})             # Used in the bootloader code
+set(F_CPU ${AVR_FREQ})                              # Used in bootloader selection
 add_definitions(-DF_CPU=${F_CPU})
 
-# Ensure there is a matching bootloader to the following values
-set(AVR_UART UART0)
-set(AVR_LED_PIN B5)
 
-## Edit this file to suit your needs
+set(AVR_UART UART0)                                 # Used in bootloader selection
+set(AVR_LED_PIN B5)                                 # Used in bootloader selection
+
+## Edit this file to suit your compiler settings needs
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/definitions.cmake)
-## Don't touch this one
+## Don't touch this one, unless you're adding a new upload tool
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/generic-gcc-avr.cmake)
 ## Don't touch this one
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/MiniCore.cmake)

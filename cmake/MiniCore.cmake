@@ -4,9 +4,9 @@ set(Core ${CMAKE_CURRENT_LIST_DIR}/../third-party/minicore/avr)
 
 # MiniCore Core
 set(CoreFiles  ${Core}/cores/MCUdude_corefiles)
-set(CoreIncludes)
-set(CoreCSources)
-set(CoreCPPSources)
+set(CoreIncludes PARENT_SCOPE)
+set(CoreCSources PARENT_SCOPE)
+set(CoreCPPSources PARENT_SCOPE)
 file(GLOB CoreIncludes ${CoreFiles}/*.h)
 file(GLOB CoreCSources ${CoreFiles}/*.c)
 file(GLOB CoreCPPSources ${CoreFiles}/*.cpp)
@@ -28,9 +28,9 @@ else()
 endif(IS_PB)
 
 # Minicore Core Extra Libraries - Files
-set(CoreLibIncludes)
-set(CoreLibCSources)
-set(CoreLibCPPSources)
+set(CoreLibIncludes PARENT_SCOPE)
+set(CoreLibCSources PARENT_SCOPE)
+set(CoreLibCPPSources PARENT_SCOPE)
 foreach(lib IN LISTS CoreLibs)
     file(GLOB_RECURSE headers ${lib}/*.h)
     set(CoreLibIncludes "${CoreLibIncludes};${headers}")
@@ -40,8 +40,11 @@ foreach(lib IN LISTS CoreLibs)
     set(CoreLibCPPSources "${CoreLibCPPSources};${cppsources}")
 endforeach()
 
-# Select a bootloader that matches the above information
-set(bootloader_leaf ${AVR_MCU}/${AVR_FREQ}/optiboot_flash_${AVR_MCU}_${AVR_UART}_${AVR_BAUD_RATE}_${AVR_FREQ}_${AVR_LED_PIN}.hex)
-set(EEPROMImage
-    ${Core}/bootloaders/optiboot_flash/bootloaders/${bootloader_leaf}
-)
+# Select a bootloader that matches the current configuration
+if (NOT eeprom_image)
+    set(bootloader_leaf ${AVR_MCU}/${AVR_FREQ}/optiboot_flash_${AVR_MCU}_${AVR_UART}_${AVR_BAUD_RATE}_${AVR_FREQ}_${AVR_LED_PIN}.hex)
+    set(eeprom_image
+            ${Core}/bootloaders/optiboot_flash/bootloaders/${bootloader_leaf}
+            PARENT_SCOPE
+    )
+endif(NOT eeprom_image)
