@@ -4,9 +4,6 @@ set(Core ${CMAKE_CURRENT_LIST_DIR}/../third-party/minicore/avr)
 
 # MiniCore Core
 set(CoreFiles  ${Core}/cores/MCUdude_corefiles)
-set(CoreIncludes PARENT_SCOPE)
-set(CoreCSources PARENT_SCOPE)
-set(CoreCPPSources PARENT_SCOPE)
 file(GLOB CoreIncludes ${CoreFiles}/*.h)
 file(GLOB CoreCSources ${CoreFiles}/*.c)
 file(GLOB CoreCPPSources ${CoreFiles}/*.cpp)
@@ -24,27 +21,29 @@ if(IS_PB)
 else()
     set(Variant ${StdVariant})
     file(GLOB RemovedItems "${CoreLibraries}/*1/src")
-    list(REMOVE_ITEM CoreLibs ${RemovedItems})
+    if(RemovedItems)
+        list(REMOVE_ITEM CoreLibs ${RemovedItems})
+  endif(RemovedItems)
 endif(IS_PB)
 
 # Minicore Core Extra Libraries - Files
-set(CoreLibIncludes PARENT_SCOPE)
-set(CoreLibCSources PARENT_SCOPE)
-set(CoreLibCPPSources PARENT_SCOPE)
 foreach(lib IN LISTS CoreLibs)
     file(GLOB_RECURSE headers ${lib}/*.h)
-    set(CoreLibIncludes "${CoreLibIncludes};${headers}")
+    set(libIncludes "${CoreLibIncludes};${headers}")
     file(GLOB_RECURSE csources ${lib}/*.c)
-    set(CoreLibCSources "${CoreLibCSources};${csources}")
+    set(libCSources "${CoreLibCSources};${csources}")
     file(GLOB_RECURSE cppsources ${lib}/*.cpp)
-    set(CoreLibCPPSources "${CoreLibCPPSources};${cppsources}")
+    set(libCPPSources "${CoreLibCPPSources};${cppsources}")
 endforeach()
+
+set(CoreIncludes ${libIncludes})
+set(CoreCSources ${libCSources})
+set(CoreCPPSources ${libCPPSources})
 
 # Select a bootloader that matches the current configuration
 if (NOT eeprom_image)
     set(bootloader_leaf ${AVR_MCU}/${AVR_FREQ}/optiboot_flash_${AVR_MCU}_${AVR_UART}_${AVR_BAUD_RATE}_${AVR_FREQ}_${AVR_LED_PIN}.hex)
     set(eeprom_image
             ${Core}/bootloaders/optiboot_flash/bootloaders/${bootloader_leaf}
-            PARENT_SCOPE
     )
 endif(NOT eeprom_image)

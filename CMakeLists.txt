@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_PROJECT_NAME, cmake_arduino)
-project(${CMAKE_PROJECT_NAME})
+project(cmake_arduino)
 
 # Set MCU (Reference
 set(AVR_MCU atmega328p) # see README for list of compatible MCUs
@@ -13,7 +12,8 @@ set(AVR_BAUD_RATE 19200) # typically 19200, 57600, 115200
 
 
 ## Select one of the two upload tools 'minipro' or 'avrdude'
-set(AVR_UPLOADTOOL avrdude)
+set(AVR_UPLOADTOOL minipro)
+set(MINIPRO_MCU ATMEGA328P@DIP28)       # Not used with avrdude
 set(AVR_PROGRAMMER arduino)             # Not used with minipro, see README for list of compatible avrdude programmers
 set(AVR_UPLOADTOOL_PORT /dev/ttyUSB0)   # Not used with minipro
 
@@ -35,14 +35,60 @@ add_definitions(-DF_CPU=${F_CPU})
 set(AVR_UART UART0)                                 # Used in bootloader selection
 set(AVR_LED_PIN B5)                                 # Used in bootloader selection
 
+
 ## Edit this file to suit your compiler settings needs
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/definitions.cmake)
 ## Don't touch this one, unless you're adding a new upload tool
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/generic-gcc-avr.cmake)
 ## Don't touch this one
-include(${CMAKE_CURRENT_LIST_DIR}/cmake/MiniCore.cmake)
 
 
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/macros.cmake)
+set(Core ${CMAKE_CURRENT_LIST_DIR}/third-party/minicore/avr)
+
+# MiniCore Core
+set(CoreFiles  ${CMAKE_CURRENT_LIST_DIR}/third-party/minicore/avr/cores/MCUdude_corefiles/)
+file(GLOB CoreIncludes ${CoreFiles}/*.h)
+file(GLOB CoreCSources ${CoreFiles}/*.c)
+file(GLOB CoreCPPSources ${CoreFiles}/*.cpp)
+
+# Minicore Core Extra Libraries
+set(CoreLibraries ${Core}/libraries)
+file(GLOB CoreLibs ${CoreLibraries}/**/src )
+
+# Variant
+set(StdVariant ${Core}/variants/standard)
+set(PBVariant ${Core}/variants/pb-variant)
+string(REGEX MATCH "(pb)$" IS_PB ${AVR_MCU})
+if(IS_PB)
+    set(Variant ${PBVariant})
+else()
+    set(Variant ${StdVariant})
+    file(GLOB RemovedItems "${CoreLibraries}/*1/src")
+    list(REMOVE_ITEM CoreLibs ${RemovedItems})
+endif(IS_PB)
+
+# Minicore Core Extra Libraries - Files
+set(CoreLibIncludes)
+set(CoreLibCSources)
+set(CoreLibCPPSources)
+foreach(lib IN LISTS CoreLibs)
+    file(GLOB_RECURSE headers ${lib}/*.h)
+    set(CoreLibIncludes "${CoreLibIncludes};${headers}")
+    file(GLOB_RECURSE csources ${lib}/*.c)
+    set(CoreLibCSources "${CoreLibCSources};${csources}")
+    file(GLOB_RECURSE cppsources ${lib}/*.cpp)
+    set(CoreLibCPPSources "${CoreLibCPPSources};${cppsources}")
+endforeach()
+
+
+# Select a bootloader that matches the current configuration
+#if (NOT eeprom_image)
+#    set(bootloader_leaf ${AVR_MCU}/${AVR_FREQ}/optiboot_flash_${AVR_MCU}_${AVR_UART}_${AVR_BAUD_RATE}_${AVR_FREQ}_${AVR_LED_PIN}.hex)
+#    set(eeprom_image
+#            ${Core}/bootloaders/optiboot_flash/bootloaders/${bootloader_leaf}
+#    )
+#endif(NOT eeprom_image)
 
 ### Local files
 
@@ -138,7 +184,8 @@ add_avr_library(
 )
 
 ## Note the call to 'add_avr_executable' instead of 'add_executable'
-add_avr_executable(${CMAKE_PROJECT_NAME}
+add_avr_executable(
+  cmake_arduino
         ${Includes}
         ${CPPSources}
         ${CSources}
@@ -153,13 +200,16 @@ add_avr_executable(${CMAKE_PROJECT_NAME}
 )
 
 ## Note the call to 'avr_target_link_libraries' instead of 'target_link_libraries'
-avr_target_link_libraries(${CMAKE_PROJECT_NAME}
+avr_target_link_libraries(
+  cmake_arduino
         Core
 )
-avr_target_link_libraries(${CMAKE_PROJECT_NAME}
+avr_target_link_libraries(
+  cmake_arduino
         AdafruitBusIO
 )
-avr_target_link_libraries(${CMAKE_PROJECT_NAME}
+avr_target_link_libraries(
+  cmake_arduino
         RotaryEncoder
 )
 

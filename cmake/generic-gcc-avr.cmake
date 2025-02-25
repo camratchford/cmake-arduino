@@ -65,15 +65,6 @@ set(AVR 1)
 # - AVR_SIZE_ARGS
 ##########################################################################
 
-# default upload tool
-if(NOT AVR_UPLOADTOOL)
-    set(
-            AVR_UPLOADTOOL avrdude
-            CACHE STRING "Set default upload tool: avrdude"
-    )
-    find_program(AVR_UPLOADTOOL avrdude)
-
-endif(NOT AVR_UPLOADTOOL)
 
 # default upload tool port
 if(NOT AVR_UPLOADTOOL_PORT)
@@ -113,156 +104,106 @@ endif(NOT AVR_SIZE_ARGS)
 if(AVR_UPLOADTOOL MATCHES avrdude)
     # default baudrate for avrdude
 
+    set(
+        AVR_UPLOADTOOL_BAUDRATE 115200
+        CACHE STRING "Set default baudrate for avrdude: 115200"
+    )
+
+    set(
+        AVR_UPLOADTOOL_OPTIONS -V
+        CACHE STRING "Set default options for avrdude: -V"
+    )
+
+    set(AVR_UPLOADTOOL_GET_STATUS
+        ${AVR_UPLOADTOOL_BASE_OPTIONS} -P ${AVR_UPLOADTOOL_PORT} -n -v
+    )
+
+    set(AVR_UPLOADTOOL_UPLOAD
+        ${AVR_UPLOADTOOL_BASE_OPTIONS} ${AVR_UPLOADTOOL_OPTIONS}
+        -U flash:w:${hex_file}
+        -P ${AVR_UPLOADTOOL_PORT}
+    )
+
+    set(AVR_UPLOADTOOL_UPLOAD_EEPROM
+        ${AVR_UPLOADTOOL_BASE_OPTIONS} ${AVR_UPLOADTOOL_OPTIONS}
+        -U eeprom:w:${eeprom_image}
+        -P ${AVR_UPLOADTOOL_PORT}
+    )
+
+    set(AVR_UPLOADTOOL_GET_FUSES
+        -U lfuse:r:-:h
+        -U hfuse:r:-:h
+        -U efuse:r:-:h
+        -U lock:r:-:h
+        CACHE STRING "Set default options for avrdude to get fuses: -U lfuse:r:-:h -U hfuse:r:-:h -U efuse:r:-:h -U lock:r:-:h"
+    )
+
+    set(AVR_UPLOADTOOL_SET_FUSES
+        ${AVR_UPLOADTOOL_BASE_OPTIONS} -P ${AVR_UPLOADTOOL_PORT}
+        -U lfuse:w:${AVR_L_FUSE}:m
+        -U hfuse:w:${AVR_H_FUSE}:m
+    )
 
 
-    if(NOT AVR_UPLOADTOOL_BAUDRATE)
-        set(
-                AVR_UPLOADTOOL_BAUDRATE 115200
-                CACHE STRING "Set default baudrate for avrdude: 115200"
-        )
-    endif(NOT AVR_UPLOADTOOL_BAUDRATE)
+    set(AVR_UPLOADTOOL_GET_CALIBRATION
+        ${AVR_UPLOADTOOL_BASE_OPTIONS} -P ${AVR_UPLOADTOOL_PORT}
+        -U calibration:r:${AVR_MCU}_calib.tmp:r
+    )
 
 
-    if(NOT AVR_UPLOADTOOL_OPTIONS)
-        set(
-                AVR_UPLOADTOOL_OPTIONS -V
-                CACHE STRING "Set default options for avrdude: -V"
-        )
-    endif(NOT AVR_UPLOADTOOL_OPTIONS)
+    set(AVR_UPLOADTOOL_SET_CALIBRATION
+        ${AVR_UPLOADTOOL_BASE_OPTIONS} -P ${AVR_UPLOADTOOL_PORT}
+        -U calibration:w:${AVR_MCU}_calib.hex
+    )
 
-
-    if(NOT AVR_UPLOADTOOL_GET_STATUS)
-        set(AVR_UPLOADTOOL_GET_STATUS
-                ${AVR_UPLOADTOOL_BASE_OPTIONS} -P ${AVR_UPLOADTOOL_PORT} -n -v
-        )
-    endif(NOT AVR_UPLOADTOOL_GET_STATUS)
-
-    if(NOT AVR_UPLOADTOOL_UPLOAD)
-        set(AVR_UPLOADTOOL_UPLOAD
-                ${AVR_UPLOADTOOL_BASE_OPTIONS} ${AVR_UPLOADTOOL_OPTIONS}
-                -U flash:w:${hex_file}
-                -P ${AVR_UPLOADTOOL_PORT}
-        )
-    endif(NOT AVR_UPLOADTOOL_UPLOAD)
-
-    if(NOT AVR_UPLOADTOOL_UPLOAD_EEPROM)
-        set(AVR_UPLOADTOOL_UPLOAD_EEPROM
-                ${AVR_UPLOADTOOL_BASE_OPTIONS} ${AVR_UPLOADTOOL_OPTIONS}
-                -U eeprom:w:${eeprom_image}
-                -P ${AVR_UPLOADTOOL_PORT}
-        )
-    endif(NOT AVR_UPLOADTOOL_UPLOAD_EEPROM)
-
-    if(NOT AVR_UPLOADTOOL_GET_FUSES)
-        set(AVR_UPLOADTOOL_GET_FUSES
-            -U lfuse:r:-:h
-            -U hfuse:r:-:h
-            -U efuse:r:-:h
-            -U lock:r:-:h
-            CACHE STRING "Set default options for avrdude to get fuses: -U lfuse:r:-:h -U hfuse:r:-:h -U efuse:r:-:h -U lock:r:-:h"
-        )
-    endif(NOT AVR_UPLOADTOOL_GET_FUSES)
-
-    if(NOT AVR_UPLOADTOOL_SET_FUSES)
-        # Write fuses to file
-        set(FuseFile "${CMAKE_CURRENT_LIST_DIR}/../${AVR_MCU}.fuses")
-        file(WRITE ${FuseFile}
-                "lfuse = ${AVR_L_FUSE}
-                hfuse = ${AVR_H_FUSE}
-                efuse = ${AVR_E_FUSE}
-                lock = ${AVR_L_FUSE}
-                "
-        )
-        set(AVR_UPLOADTOOL_SET_FUSES
-                ${AVR_UPLOADTOOL_BASE_OPTIONS} -P ${AVR_UPLOADTOOL_PORT}
-                -U lfuse:w:${AVR_L_FUSE}:m
-                -U hfuse:w:${AVR_H_FUSE}:m
-        )
-    endif(NOT AVR_UPLOADTOOL_SET_FUSES)
-
-    if(NOT AVR_UPLOADTOOL_GET_CALIBRATION)
-
-        set(AVR_UPLOADTOOL_GET_CALIBRATION
-                ${AVR_UPLOADTOOL_BASE_OPTIONS} -P ${AVR_UPLOADTOOL_PORT}
-                -U calibration:r:${AVR_MCU}_calib.tmp:r
-        )
-
-    endif(NOT AVR_UPLOADTOOL_GET_CALIBRATION)
-
-    if(NOT AVR_UPLOADTOOL_SET_CALIBRATION)
-        set(AVR_UPLOADTOOL_SET_CALIBRATION
-                ${AVR_UPLOADTOOL_BASE_OPTIONS} -P ${AVR_UPLOADTOOL_PORT}
-                -U calibration:w:${AVR_MCU}_calib.hex
-        )
-
-    endif(NOT AVR_UPLOADTOOL_SET_CALIBRATION)
 
 endif(AVR_UPLOADTOOL MATCHES avrdude)
-
-if(AVRUPLOAD_TOOL MATCHES minipro)
+if(AVR_UPLOADTOOL MATCHES minipro)
     # default options for minipro
-    if(NOT AVR_UPLOADTOOL_OPTIONS)
-        set(AVR_UPLOADTOOL_OPTIONS
-                -p "${MINIPRO_DEVICE}"
-        )
-    endif(NOT AVR_UPLOADTOOL_OPTIONS)
+    set(AVR_UPLOADTOOL_OPTIONS
+        -p "${MINIPRO_MCU}"
+    )
 
-    if(NOT AVR_UPLOADTOOL_GET_STATUS)
-        set(AVR_UPLOADTOOL_GET_STATUS
-                ${AVR_UPLOADTOOL_OPTIONS} -z
-        )
-    endif(NOT AVR_UPLOADTOOL_GET_STATUS)
+    set(AVR_UPLOADTOOL_GET_STATUS
+        ${AVR_UPLOADTOOL_OPTIONS} -z
+    )
 
-    if(NOT AVR_UPLOADTOOL_UPLOAD)
-        set(AVR_UPLOADTOOL_UPLOAD
-                ${AVR_UPLOADTOOL_OPTIONS} -c code -w "${hex_file}"
-        )
-    endif(NOT AVR_UPLOADTOOL_UPLOAD)
+    set(AVR_UPLOADTOOL_UPLOAD
+        ${AVR_UPLOADTOOL_OPTIONS} -c code -w "${hex_file}"
+    )
 
-    if(NOT AVR_UPLOADTOOL_UPLOAD_EEPROM)
-        set(AVR_UPLOADTOOL_UPLOAD
-                ${AVR_UPLOADTOOL_OPTIONS} -c data -w "${eeprom_image}"
-        )
-    endif(NOT AVR_UPLOADTOOL_UPLOAD_EEPROM)
+    set(AVR_UPLOADTOOL_UPLOAD_EEPROM
+        ${AVR_UPLOADTOOL_OPTIONS} -c data -w "${eeprom_file}"
+    )
 
-    if(NOT AVR_UPLOADTOOL_GET_FUSES)
-        set(AVR_UPLOADTOOL_GET_FUSES
-                ${AVR_UPLOADTOOL_OPTIONS} -c config -r "${AVR_MCU}.fuses.tmp"
+    set(AVR_UPLOADTOOL_GET_FUSES
+        ${AVR_UPLOADTOOL_OPTIONS} -c config -r "${AVR_MCU}.fuses.tmp"
+    )
 
-        )
-    endif(NOT AVR_UPLOADTOOL_GET_FUSES)
+    # Write fuses to file
+    set(FuseFile "${CMAKE_CURRENT_LIST_DIR}/../${AVR_MCU}.fuses")
+    file(WRITE ${FuseFile}
+"lfuse = ${AVR_L_FUSE}
+hfuse = ${AVR_H_FUSE}
+efuse = ${AVR_E_FUSE}
+lock = ${AVR_L_FUSE}
+"
+    )
+    set(AVR_UPLOADTOOL_SET_FUSES
+        ${AVR_UPLOADTOOL_OPTIONS} -c config -w "${FuseFile}"
+    )
 
-    if(NOT AVR_UPLOADTOOL_SET_FUSES)
-        # Write fuses to file
-        set(FuseFile "${CMAKE_CURRENT_LIST_DIR}/../${AVR_MCU}.fuses")
-        file(WRITE ${FuseFile}
-                "lfuse = ${AVR_LFUSE}
-                hfuse = ${AVR_HFUSE}
-                efuse = ${AVR_EFUSE}
-                lock = ${AVR_LOCKFUSE}
-                "
-        )
-        set(AVR_UPLOADTOOL_SET_FUSES
-                ${AVR_UPLOADTOOL_OPTIONS} -c config -w "${AVR_MCU}.fuses"
-        )
-    endif(NOT AVR_UPLOADTOOL_SET_FUSES)
 
-    if(NOT AVR_UPLOADTOOL_GET_CALIBRATION)
+    set(AVR_UPLOADTOOL_GET_CALIBRATION
+                  ${AVR_UPLOADTOOL_OPTIONS} -c calibration -r "${AVR_MCU}_calib.tmp"
+    )
 
-        set(AVR_UPLOADTOOL_GET_CALIBRATION
-                ${AVR_UPLOADTOOL_OPTIONS} -c calibration -r "${AVR_MCU}_calib.tmp"
-        )
 
-    endif(NOT AVR_UPLOADTOOL_GET_CALIBRATION)
+    set(AVR_UPLOADTOOL_SET_CALIBRATION
+            ${AVR_UPLOADTOOL_OPTIONS} -c calibration -w "${AVR_MCU}_calib.hex"
+    )
+endif(AVR_UPLOADTOOL MATCHES minipro)
 
-    if(NOT AVR_UPLOADTOOL_SET_CALIBRATION)
-        set(AVR_UPLOADTOOL_SET_CALIBRATION
-                ${AVR_UPLOADTOOL_OPTIONS} -c calibration -w "${AVR_MCU}_calib.hex"
-        )
-
-    endif(NOT AVR_UPLOADTOOL_SET_CALIBRATION)
-
-endif(AVRUPLOAD_TOOL MATCHES minipro)
 
 
 ##########################################################################
@@ -321,15 +262,14 @@ function(add_avr_executable EXECUTABLE_NAME)
    set(hex_file ${EXECUTABLE_NAME}${MCU_TYPE_FOR_FILENAME}.hex)
    set(lst_file ${EXECUTABLE_NAME}${MCU_TYPE_FOR_FILENAME}.lst)
    set(map_file ${EXECUTABLE_NAME}${MCU_TYPE_FOR_FILENAME}.map)
-   if (NOT eeprom_image)
-       set(eeprom_image ${EXECUTABLE_NAME}${MCU_TYPE_FOR_FILENAME}-eeprom.hex)
-   endif(NOT eeprom_image)
+
+   set(eeprom_image ${EXECUTABLE_NAME}${MCU_TYPE_FOR_FILENAME}-eeprom.hex)
 
    set (${EXECUTABLE_NAME}_ELF_TARGET ${elf_file} PARENT_SCOPE)
    set (${EXECUTABLE_NAME}_HEX_TARGET ${hex_file} PARENT_SCOPE)
    set (${EXECUTABLE_NAME}_LST_TARGET ${lst_file} PARENT_SCOPE)
    set (${EXECUTABLE_NAME}_MAP_TARGET ${map_file} PARENT_SCOPE)
-   set (${EXECUTABLE_NAME}_EEPROM_TARGET ${eeprom_file} PARENT_SCOPE)
+   set (${EXECUTABLE_NAME}_EEPROM_TARGET ${eeprom_image} PARENT_SCOPE)
    # elf file
    add_executable(${elf_file} EXCLUDE_FROM_ALL ${ARGN})
 
@@ -358,7 +298,7 @@ function(add_avr_executable EXECUTABLE_NAME)
 
    # eeprom
    add_custom_command(
-      OUTPUT ${EEPROMImage}
+      OUTPUT ${eeprom_image}
       COMMAND
          ${AVR_OBJCOPY} -j .eeprom --set-section-flags=.eeprom=alloc,load
             --change-section-lma .eeprom=0 --no-change-warnings
@@ -388,18 +328,18 @@ function(add_avr_executable EXECUTABLE_NAME)
    # upload - with avrdude
    add_custom_target(
            upload_${EXECUTABLE_NAME}
-           ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_UPLOAD}
+           ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_UPLOAD} ${hex_file}
            DEPENDS ${hex_file}
-           COMMENT "Uploading ${hex_file} to ${AVR_MCU} using ${AVR_PROGRAMMER}"
+           COMMENT "Uploading ${hex_file} to ${AVR_MCU} using ${AVR_PROGRAMMER}: ${AVR_UPLOADTOOL_UPLOAD} ${hex_file}"
    )
 
    # upload eeprom only - with avrdude
    # see also bug http://savannah.nongnu.org/bugs/?40142
    add_custom_target(
            upload_${EXECUTABLE_NAME}_eeprom
-           ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_UPLOAD_EEPROM}
+           ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_UPLOAD_EEPROM} ${eeprom_image}
            DEPENDS ${eeprom_image}
-           COMMENT "Uploading ${eeprom_image} to ${AVR_MCU} using ${AVR_PROGRAMMER}"
+           COMMENT "Uploading ${eeprom_image} to ${AVR_MCU} using ${AVR_PROGRAMMER}: ${AVR_UPLOADTOOL_UPLOAD_EEPROM}"
    )
 
    # disassemble
@@ -531,8 +471,8 @@ function(avr_generate_fixed_targets)
    # set fuses
    add_custom_target(
       set_fuses
-          ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_SET_FUSES}
-          COMMENT "Set fuses for ${AVR_MCU}"
+      ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_SET_FUSES}
+          COMMENT "Set fuses for ${AVR_MCU}: ${AVR_UPLOADTOOL_SET_FUSES}"
    )
 
    # get oscillator calibration

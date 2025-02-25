@@ -1,0 +1,617 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "libCore-atmega328p.a"
+		}
+	],
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"add_avr_library",
+			"add_definitions",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"cmake/generic-gcc-avr.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 151,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 391,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 29,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 27,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 31,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 28,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 139,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-O1 -save-temps -g -gdwarf-3  -fdiagnostics-color=always   -fpack-struct -fshort-enums -Wall -Werror -funsigned-char -funsigned-bitfields -ffunction-sections -c"
+				},
+				{
+					"fragment" : "-mmcu=atmega328p"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "AVR_FREQ=8000000L"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "AVR_MCU=\"atmega328p\""
+				},
+				{
+					"backtrace" : 5,
+					"define" : "F_CPU=8000000L"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "UART_BAUD_RATE=19200"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/include"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/usr/lib/avr/include"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/lib"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/cores/MCUdude_corefiles"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/variants/standard"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/AVR_examples/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/EEPROM/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/Flash/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/SPI/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/SoftwareSerial/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/Wire/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/Adafruit_BusIO"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/RotaryEncoder/src"
+				}
+			],
+			"language" : "C",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					2
+				],
+				"standard" : "17"
+			},
+			"sourceIndexes" : 
+			[
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26
+			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-O1 -save-temps -g -gdwarf-3  -std=gnu++17 -fdiagnostics-color=always   -fpack-struct -fshort-enums -Wall -Werror -funsigned-char -funsigned-bitfields -ffunction-sections -c"
+				},
+				{
+					"fragment" : "-mmcu=atmega328p"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "AVR_FREQ=8000000L"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "AVR_MCU=\"atmega328p\""
+				},
+				{
+					"backtrace" : 5,
+					"define" : "F_CPU=8000000L"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "UART_BAUD_RATE=19200"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/include"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/usr/lib/avr/include"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/lib"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/cores/MCUdude_corefiles"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/variants/standard"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/AVR_examples/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/EEPROM/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/Flash/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/SPI/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/SoftwareSerial/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/minicore/avr/libraries/Wire/src"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/Adafruit_BusIO"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/cam/cmake-arduino/third-party/RotaryEncoder/src"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					2
+				],
+				"standard" : "17"
+			},
+			"sourceIndexes" : 
+			[
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44
+			]
+		}
+	],
+	"id" : "Core-atmega328p::@6890427a1f51a3e7e1df",
+	"name" : "Core-atmega328p",
+	"nameOnDisk" : "libCore-atmega328p.a",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19
+			]
+		},
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/Arduino.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/Client.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/HardwareSerial.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/HardwareSerial_private.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/IPAddress.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/PluggableUSB.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/Print.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/Printable.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/Server.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/Stream.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/USBAPI.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/USBCore.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/USBDesc.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/Udp.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/WCharacter.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/WString.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/binary.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/new.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/wiring_extras.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/wiring_private.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/WInterrupts.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/hooks.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/wiring.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/wiring_analog.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/wiring_digital.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/wiring_pulse.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/wiring_shift.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/CDC.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/HardwareSerial.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/HardwareSerial0.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/HardwareSerial1.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/HardwareSerial2.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/HardwareSerial3.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/IPAddress.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/PluggableUSB.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/Print.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/Stream.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/Tone.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/USBCore.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/WMath.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/WString.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/abi.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/main.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/new.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "third-party/minicore/avr/cores/MCUdude_corefiles/wiring_extras.cpp",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

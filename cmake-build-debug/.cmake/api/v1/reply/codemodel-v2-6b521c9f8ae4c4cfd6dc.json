@@ -1,0 +1,195 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "cmake_arduino",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "AdafruitBusIO::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-AdafruitBusIO-Debug-c77c2c71dfb6f4a6c96a.json",
+					"name" : "AdafruitBusIO",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "AdafruitBusIO-atmega328p::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-AdafruitBusIO-atmega328p-Debug-d5c1ab1b269f2ca467bc.json",
+					"name" : "AdafruitBusIO-atmega328p",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Core::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Core-Debug-662eb886e7471381ad41.json",
+					"name" : "Core",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Core-atmega328p::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Core-atmega328p-Debug-f1aae2e331a842720b13.json",
+					"name" : "Core-atmega328p",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "RotaryEncoder::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-RotaryEncoder-Debug-c3a913d92a536e6240b4.json",
+					"name" : "RotaryEncoder",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "RotaryEncoder-atmega328p::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-RotaryEncoder-atmega328p-Debug-1d12a85d5366bcadcd19.json",
+					"name" : "RotaryEncoder-atmega328p",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cmake_arduino::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cmake_arduino-Debug-36e126bed82a297ad312.json",
+					"name" : "cmake_arduino",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cmake_arduino-atmega328p.elf::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cmake_arduino-atmega328p.elf-Debug-c2523fcaa0351fe91754.json",
+					"name" : "cmake_arduino-atmega328p.elf",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disassemble_cmake_arduino::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disassemble_cmake_arduino-Debug-c0ff1b2c390dcaf34372.json",
+					"name" : "disassemble_cmake_arduino",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "get_calibration::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-get_calibration-Debug-a3ae8c72da99ac3a92ca.json",
+					"name" : "get_calibration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "get_fuses::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-get_fuses-Debug-db4f611da7673e3c2ac6.json",
+					"name" : "get_fuses",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "get_status::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-get_status-Debug-7761940425444b1f3ef0.json",
+					"name" : "get_status",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "set_calibration::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-set_calibration-Debug-c4e6f024279044af9409.json",
+					"name" : "set_calibration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "set_fuses::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-set_fuses-Debug-d1abdde38ac9c5eed6dd.json",
+					"name" : "set_fuses",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "upload_cmake_arduino::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-upload_cmake_arduino-Debug-a0e89bcab45e75952610.json",
+					"name" : "upload_cmake_arduino",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "upload_cmake_arduino_eeprom::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-upload_cmake_arduino_eeprom-Debug-c36f32200952ab035d76.json",
+					"name" : "upload_cmake_arduino_eeprom",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/cam/cmake-arduino/cmake-build-debug",
+		"source" : "/home/cam/cmake-arduino"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

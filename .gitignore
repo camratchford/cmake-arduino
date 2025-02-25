@@ -1,3 +1,5 @@
 third-party/
 .idea/
 build/
+*.fuses
+*.tmp

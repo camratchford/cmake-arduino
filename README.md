@@ -10,10 +10,10 @@ This project is a template for creating Arduino projects using CMake, using the 
 
 - git
 - cmake
-- gcc-avr 
-- binutils-avr 
-- avr-libc 
-- gdb-avr 
+- gcc-avr
+- binutils-avr
+- avr-libc
+- gdb-avr
 - avrdude (optionally)
 - minipro (optionally)
 
@@ -83,45 +83,35 @@ Edit the `CMakeLists.txt` file to match your project's settings.
 
 Variables that need to be set are:
 
-| cmake variable        | description                                                     | default        |
-|-----------------------|-----------------------------------------------------------------|----------------|
-| `CMAKE_PROJECT_NAME`  | The name of the project                                         | cmake_arduino  |
-| `AVR_MCU`             | The model of AVR microcontroller you're using                   | atmega328p     |
-| `AVR_FREQ`            | The frequency of the AVR microcontroller in Hz                  | 8000000L       |
-| `AVR_BAUD_RATE`       | The frequency to set the Serial device to                       | 19200          |
-| `AVR_UPLOADTOOL`      | The software used to configure and upload the AVR chip          | avrdude        |
-| `AVR_PROGRAMMER`      | The model of programmer that the `AVR_UPLOADTOOL` should see    | arduino        |
-| `AVR_UPLOADTOOL_PORT` | The serial port that the `AVR_UPLOADTOOL` device is attached to | /dev/ttyUSB0   |
-| `AVR_L_FUSE`          | The value of the low-byte fuses                                 | 0xC2           |
-| `AVR_H_FUSE`          | The value of the high-byte fuses                                | 0xd9           |
-| `AVR_E_FUSE`          | The value of the extended fuses                                 | 0xff           |
-| `AVR_L_FUSE`          | The value of the lockbit fuses                                  | 0xff           |
+| cmake variable        | description                                                            | default        |
+|-----------------------|------------------------------------------------------------------------|----------------|
+| `CMAKE_PROJECT_NAME`  | The name of the project                                                | cmake_arduino  |
+| `AVR_MCU`             | The model of AVR microcontroller you're using                          | atmega328p     |
+| `AVR_FREQ`            | The frequency of the AVR microcontroller in Hz                         | 8000000L       |
+| `AVR_BAUD_RATE`       | The frequency to set the Serial device to                              | 19200          |
+| `AVR_UPLOADTOOL`      | The software used to configure and upload the AVR chip                 | avrdude        |
+| `MINIPRO_MCU`         | The specific model of MCU you're using, as far as minipro is concerned | arduino        |
+| `AVR_PROGRAMMER`      | The model of programmer that the `AVR_UPLOADTOOL` should see           | arduino        |
+| `AVR_UPLOADTOOL_PORT` | The serial port that the `AVR_UPLOADTOOL` device is attached to        | /dev/ttyUSB0   |
+| `AVR_L_FUSE`          | The value of the low-byte fuses                                        | 0xC2           |
+| `AVR_H_FUSE`          | The value of the high-byte fuses                                       | 0xd9           |
+| `AVR_E_FUSE`          | The value of the extended fuses                                        | 0xff           |
+| `AVR_L_FUSE`          | The value of the lockbit fuses                                         | 0xff           |
 
-> The default fuse values can be viewed [here](https://eleccelerator.com/fusecalc/fusecalc.php?chip=atmega328p&LOW=C2&HIGH=D9&EXTENDED=FF&LOCKBIT=FF) <br>
+> The default fuse values can be viewed [here](https://eleccelerator.com/fusecalc/fusecalc.php?chip=atmega328p&LOW=C2&HIGH=D9&EXTENDED=FF&LOCKBIT=FF)<br>
 > Set to use the internal oscillator at 8MHz by default.
- 
-### Run the test program
+
+### Build and Upload
 
 ```bash
+# Set PROJECT_NAME to whatever you named the project in CMakeLists.txt
+PROJECT_NAME="cmake_arduino"
 mkdir -p build
-cd build 
-cmake ..
-make
-```
+cd build && cmake .. || /bin/true \
+  && cmake -G "Unix Makefiles" . || /bin/true \
+  && make all upload_${PROJECT_NAME} upload_${PROJECT_NAME}_eeprom set_fuses || /bin/true \
+  && cd ..
 
-### Setting the fuses
-
-```bash
-make set_fuses
-```
-
-
-### Uploading the program
-
-```bash
-# if you change the variable CMAKE_PROJECT_NAME in CMakeLists.txt (default is 'cmake_arduino'), 
-# you must also change the target name here.
-make upload_cmake_arduino
 ```
 
 
