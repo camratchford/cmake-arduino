@@ -8,14 +8,17 @@ This project is a template for creating Arduino projects using CMake, using the 
 
 > Debian packages
 
-- git
-- cmake
-- gcc-avr
-- binutils-avr
-- avr-libc
-- gdb-avr
-- avrdude (optionally)
-- minipro (optionally)
+```bash
+## Install the gcc-avr toolchain
+sudo apt install -y gcc-avr binutils-avr avr-libc gdb-avr 
+## Install correct version of cmake
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add
+sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main'
+sudo apt update
+## If cmake is installed, run: 
+# sudo apt remove cmake
+sudo apt install cmake
+```
 
 
 ### Compatibility
