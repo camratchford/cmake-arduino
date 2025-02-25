@@ -11,13 +11,17 @@ This project is a template for creating Arduino projects using CMake, using the 
 ```bash
 ## Install the gcc-avr toolchain
 sudo apt install -y gcc-avr binutils-avr avr-libc gdb-avr 
+
+## Install pre-reqs for the cmake repo
+sudo apt install -y ca-certificates gpg wget
+
 ## Install correct version of cmake
 wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add
-sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main'
+sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
 sudo apt update
 ## If cmake is installed, run: 
 # sudo apt remove cmake
-sudo apt install cmake
+sudo apt install -y cmake
 ```
 
 
