@@ -36,6 +36,7 @@ set(AVR_UART UART0)                                 # Used in bootloader selecti
 set(AVR_LED_PIN B5)                                 # Used in bootloader selection
 
 
+
 ## Edit this file to suit your compiler settings needs
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/definitions.cmake)
 ## Don't touch this one, unless you're adding a new upload tool
@@ -55,6 +56,13 @@ file(GLOB CoreCPPSources ${CoreFiles}/*.cpp)
 # Minicore Core Extra Libraries
 set(CoreLibraries ${Core}/libraries)
 file(GLOB CoreLibs ${CoreLibraries}/**/src )
+
+# Select a bootloader that matches the current configuration
+set(bootloader_leaf ${AVR_MCU}/${AVR_FREQ}/optiboot_flash_${AVR_MCU}_${AVR_UART}_${AVR_BAUD_RATE}_${AVR_FREQ}_${AVR_LED_PIN}.hex)
+set(boot_file
+        ${Core}/bootloaders/optiboot_flash/bootloaders/${bootloader_leaf}
+)
+
 
 # Variant
 set(StdVariant ${Core}/variants/standard)
@@ -82,13 +90,7 @@ foreach(lib IN LISTS CoreLibs)
 endforeach()
 
 
-# Select a bootloader that matches the current configuration
-#if (NOT eeprom_image)
-#    set(bootloader_leaf ${AVR_MCU}/${AVR_FREQ}/optiboot_flash_${AVR_MCU}_${AVR_UART}_${AVR_BAUD_RATE}_${AVR_FREQ}_${AVR_LED_PIN}.hex)
-#    set(eeprom_image
-#            ${Core}/bootloaders/optiboot_flash/bootloaders/${bootloader_leaf}
-#    )
-#endif(NOT eeprom_image)
+
 
 ### Local files
 

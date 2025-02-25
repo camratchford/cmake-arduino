@@ -116,7 +116,7 @@ PROJECT_NAME="cmake_arduino"
 mkdir -p build
 cd build && cmake .. || /bin/true \
   && cmake -G "Unix Makefiles" . || /bin/true \
-  && make all upload_${PROJECT_NAME} upload_${PROJECT_NAME}_eeprom set_fuses || /bin/true \
+  && make all upload_${PROJECT_NAME} upload_${PROJECT_NAME}_eeprom upload_${PROJECT_NAME}_boot set_fuses  || /bin/true \
   && cd ..
 
 ```

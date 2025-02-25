@@ -124,6 +124,12 @@ if(AVR_UPLOADTOOL MATCHES avrdude)
         -P ${AVR_UPLOADTOOL_PORT}
     )
 
+    set(AVR_UPLOADTOOL_UPLOAD_BOOT
+            ${AVR_UPLOADTOOL_BASE_OPTIONS} ${AVR_UPLOADTOOL_OPTIONS}
+            -U flash:w:${boot_file}
+            -P ${AVR_UPLOADTOOL_PORT}
+    )
+
     set(AVR_UPLOADTOOL_UPLOAD_EEPROM
         ${AVR_UPLOADTOOL_BASE_OPTIONS} ${AVR_UPLOADTOOL_OPTIONS}
         -U eeprom:w:${eeprom_image}
@@ -169,11 +175,15 @@ if(AVR_UPLOADTOOL MATCHES minipro)
     )
 
     set(AVR_UPLOADTOOL_UPLOAD
-        ${AVR_UPLOADTOOL_OPTIONS} -c code -w "${hex_file}"
+        ${AVR_UPLOADTOOL_OPTIONS} -c code -w
+    )
+
+    set(AVR_UPLOADTOOL_UPLOAD_BOOT
+            ${AVR_UPLOADTOOL_OPTIONS} -c code -w
     )
 
     set(AVR_UPLOADTOOL_UPLOAD_EEPROM
-        ${AVR_UPLOADTOOL_OPTIONS} -c data -w "${eeprom_file}"
+        ${AVR_UPLOADTOOL_OPTIONS} -c data -w
     )
 
     set(AVR_UPLOADTOOL_GET_FUSES
@@ -328,16 +338,24 @@ function(add_avr_executable EXECUTABLE_NAME)
    # upload - with avrdude
    add_custom_target(
            upload_${EXECUTABLE_NAME}
-           ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_UPLOAD} ${hex_file}
+           ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_UPLOAD} "${hex_file}"
            DEPENDS ${hex_file}
            COMMENT "Uploading ${hex_file} to ${AVR_MCU} using ${AVR_PROGRAMMER}: ${AVR_UPLOADTOOL_UPLOAD} ${hex_file}"
+   )
+
+   # Upload bootloader
+   add_custom_target(
+           upload_${EXECUTABLE_NAME}_boot
+           ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_UPLOAD_BOOT} "${boot_file}"
+           DEPENDS ${hex_file}
+           COMMENT "Uploading ${hex_file} to ${AVR_MCU} using ${AVR_PROGRAMMER}: ${AVR_UPLOADTOOL_UPLOAD} ${boot_file}"
    )
 
    # upload eeprom only - with avrdude
    # see also bug http://savannah.nongnu.org/bugs/?40142
    add_custom_target(
            upload_${EXECUTABLE_NAME}_eeprom
-           ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_UPLOAD_EEPROM} ${eeprom_image}
+           ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_UPLOAD_EEPROM} "${eeprom_image}"
            DEPENDS ${eeprom_image}
            COMMENT "Uploading ${eeprom_image} to ${AVR_MCU} using ${AVR_PROGRAMMER}: ${AVR_UPLOADTOOL_UPLOAD_EEPROM}"
    )
