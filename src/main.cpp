@@ -11,7 +11,6 @@ void setup() {
     pinMode(LED_PIN, INPUT);
     delay(500);
 
-
     for (;;) {
         digitalWrite(LED_PIN, HIGH);
         delay(1000);
@@ -22,10 +21,4 @@ void setup() {
 
 void loop() {
 
-}
-
-int main() {
-  setup();
-  loop();
-  return 0;
 }
